@@ -1,0 +1,451 @@
+[
+  {
+    "productName": "Smartphone XYZ",
+    "price": 699,
+    "rating": {
+      "average": 4.5,
+      "users": 125
+    },
+    "images": {
+      "preview": "https://i.ibb.co/RvHmSYn/product-img-1.jpg",
+      "otherImages": [
+        "https://i.ibb.co/MckdkNG/product-details-5.png",
+        "https://i.ibb.co/QK4pq89/product-img-8.jpg",
+        "https://i.ibb.co/6HZ3Kr3/product-img-82.jpg"
+      ]
+    },
+    "tag": ["Smartphone", "Mobile", "XYZ"],
+    "colorVariation": ["Black", "White", "Blue"],
+    "brand": "Samsung",
+    "category": "Smartphone",
+    "shortDescription": "Powerful and feature-rich smartphone",
+    "features": [
+      "6.2-inch Super AMOLED display",
+      "Quad-camera setup",
+      "Snapdragon 865 processor",
+      "8GB RAM, 128GB storage",
+      "4500mAh battery",
+      "5G connectivity"
+    ],
+    "quantityInStock": 50
+  },
+  {
+    "productName": "Laptop ABC",
+    "price": 1099,
+    "rating": {
+      "average": 4.8,
+      "users": 89
+    },
+    "images": {
+      "preview": "https://i.ibb.co/QK4pq89/product-img-8.jpg",
+      "otherImages": [
+        "https://i.ibb.co/m9y0tYR/product-img-2.jpg",
+        "https://i.ibb.co/RvHmSYn/product-img-1.jpg",
+        "https://i.ibb.co/YDJjDtP/product-img-3.jpg"
+      ]
+    },
+    "tag": ["Laptop", "Computer", "ABC"],
+    "colorVariation": ["Silver", "Space Gray"],
+    "brand": "Apple",
+    "category": "Laptop",
+    "shortDescription": "High-performance laptop for professionals",
+    "features": [
+      "13.3-inch Retina display",
+      "Apple M1 chip",
+      "8GB unified memory",
+      "512GB SSD storage",
+      "Touch ID and Magic Keyboard",
+      "Up to 20 hours of battery life"
+    ],
+    "quantityInStock": 30
+  },
+  {
+    "productName": "Wireless Earbuds PQR",
+    "price": 129,
+    "rating": {
+      "average": 4.2,
+      "users": 300
+    },
+    "images": {
+      "preview": "https://i.ibb.co/MckdkNG/product-details-5.png",
+      "otherImages": [
+        "https://i.ibb.co/njbKjHS/product-img-4.jpg",
+        "https://i.ibb.co/YDJjDtP/product-img-3.jpg",
+        "https://i.ibb.co/QK4pq89/product-img-8.jpg"
+      ]
+    },
+    "tag": ["Accessories", "Earbuds", "PQR"],
+    "colorVariation": ["Black", "White", "Red"],
+    "brand": "Sony",
+    "category": "Computer Accessories",
+    "shortDescription": "Premium wireless earbuds with noise-cancellation",
+    "features": [
+      "Active noise-cancellation",
+      "Bluetooth 5.0",
+      "Water and dust resistance",
+      "Up to 24 hours of battery life",
+      "Quick charge support",
+      "Comfortable ergonomic design"
+    ],
+    "quantityInStock": 100
+  },
+  {
+    "productName": "Gaming Laptop XYZ",
+    "price": 1499,
+    "rating": {
+      "average": 4.7,
+      "users": 75
+    },
+    "images": {
+      "preview": "https://i.ibb.co/6HZ3Kr3/product-img-82.jpg",
+      "otherImages": [
+        "https://i.ibb.co/MckdkNG/product-details-5.png",
+        "https://i.ibb.co/m9y0tYR/product-img-2.jpg",
+        "https://i.ibb.co/YDJjDtP/product-img-3.jpg"
+      ]
+    },
+    "tag": ["Gaming Laptop", "Gaming", "XYZ"],
+    "colorVariation": ["Black", "Red"],
+    "brand": "ASUS",
+    "category": "Laptop",
+    "shortDescription": "Powerful gaming laptop for immersive gaming experiences",
+    "features": [
+      "15.6-inch Full HD display with high refresh rate",
+      "NVIDIA RTX 3060 graphics",
+      "Intel Core i7 processor",
+      "16GB RAM, 1TB SSD",
+      "RGB-backlit keyboard",
+      "Dual cooling fans"
+    ],
+    "quantityInStock": 25
+  },
+  {
+    "productName": "Smartphone ABC",
+    "price": 799,
+    "rating": {
+      "average": 4.4,
+      "users": 200
+    },
+    "images": {
+      "preview": "https://i.ibb.co/YDJjDtP/product-img-3.jpg",
+      "otherImages": [
+        "https://i.ibb.co/QK4pq89/product-img-8.jpg",
+        "https://i.ibb.co/m9y0tYR/product-img-2.jpg",
+        "https://i.ibb.co/RvHmSYn/product-img-1.jpg"
+      ]
+    },
+    "tag": ["Smartphone", "Mobile", "ABC"],
+    "colorVariation": ["Silver", "Gold"],
+    "brand": "Sony",
+    "category": "Smartphone",
+    "shortDescription": "Premium smartphone with advanced camera features",
+    "features": [
+      "6.4-inch OLED display",
+      "Triple-camera system with 48MP main sensor",
+      "Qualcomm Snapdragon 888 processor",
+      "8GB RAM, 256GB storage",
+      "4000mAh battery",
+      "Water and dust resistance (IP68)"
+    ],
+    "quantityInStock": 40
+  },
+  {
+    "productName": "External SSD 1TB",
+    "price": 199,
+    "rating": {
+      "average": 4.9,
+      "users": 120
+    },
+    "images": {
+      "preview": "https://i.ibb.co/njbKjHS/product-img-4.jpg",
+      "otherImages": [
+        "https://i.ibb.co/MckdkNG/product-details-5.png",
+        "https://i.ibb.co/YDJjDtP/product-img-3.jpg",
+        "https://i.ibb.co/QK4pq89/product-img-8.jpg"
+      ]
+    },
+    "tag": ["Accessories", "Storage", "SSD"],
+    "colorVariation": ["Silver", "Space Gray"],
+    "brand": "Samsung",
+    "category": "Computer Accessories",
+    "shortDescription": "High-speed portable external SSD for data storage",
+    "features": [
+      "1TB storage capacity",
+      "USB 3.2 Gen 2 interface",
+      "Up to 540MB/s transfer speed",
+      "Compact and durable design",
+      "Password protection and data encryption"
+    ],
+    "quantityInStock": 80
+  },
+  {
+    "productName": "Smartwatch XYZ",
+    "price": 299,
+    "rating": {
+      "average": 4.6,
+      "users": 90
+    },
+    "images": {
+      "preview": "https://i.ibb.co/YDJjDtP/product-img-3.jpg",
+      "otherImages": [
+        "https://i.ibb.co/RvHmSYn/product-img-1.jpg",
+        "https://i.ibb.co/QK4pq89/product-img-8.jpg",
+        "https://i.ibb.co/6HZ3Kr3/product-img-82.jpg"
+      ]
+    },
+    "tag": ["Smartwatch", "Wearable", "XYZ"],
+    "colorVariation": ["Black", "Silver", "Rose Gold"],
+    "brand": "Fitbit",
+    "category": "Smartwatch",
+    "shortDescription": "Feature-packed smartwatch for fitness enthusiasts",
+    "features": [
+      "1.3-inch AMOLED display",
+      "Heart rate and sleep tracking",
+      "Built-in GPS",
+      "Water-resistant up to 50 meters",
+      "7+ days of battery life",
+      "Smartphone notifications"
+    ],
+    "quantityInStock": 60
+  },
+  {
+    "productName": "Gaming Mouse ABC",
+    "price": 79,
+    "rating": {
+      "average": 4.7,
+      "users": 55
+    },
+    "images": {
+      "preview": "https://i.ibb.co/6HZ3Kr3/product-img-82.jpg",
+      "otherImages": [
+        "https://i.ibb.co/m9y0tYR/product-img-2.jpg",
+        "https://i.ibb.co/RvHmSYn/product-img-1.jpg",
+        "https://i.ibb.co/YDJjDtP/product-img-3.jpg"
+      ]
+    },
+    "tag": ["Gaming Mouse", "Gaming", "ABC"],
+    "colorVariation": ["Black", "RGB"],
+    "brand": "Logitech",
+    "category": "Computer Accessories",
+    "shortDescription": "High-performance gaming mouse with customizable RGB lighting",
+    "features": [
+      "12,000 DPI HERO optical sensor",
+      "Programmable buttons",
+      "Adjustable weight system",
+      "LightSync RGB lighting",
+      "Durable mechanical switches",
+      "Onboard memory for profiles"
+    ],
+    "quantityInStock": 70
+  },
+  {
+    "productName": "Tablet PQR",
+    "price": 399,
+    "rating": {
+      "average": 4.3,
+      "users": 110
+    },
+    "images": {
+      "preview": "https://i.ibb.co/m9y0tYR/product-img-2.jpg",
+      "otherImages": [
+        "https://i.ibb.co/QK4pq89/product-img-8.jpg",
+        "https://i.ibb.co/RvHmSYn/product-img-1.jpg",
+        "https://i.ibb.co/YDJjDtP/product-img-3.jpg"
+      ]
+    },
+    "tag": ["Tablet", "Mobile", "PQR"],
+    "colorVariation": ["Silver", "Gold"],
+    "brand": "Lenovo",
+    "category": "Tablet",
+    "shortDescription": "Versatile tablet for work and entertainment",
+    "features": [
+      "10.1-inch IPS display",
+      "Octa-core processor",
+      "4GB RAM, 128GB storage",
+      "Dual speakers with Dolby Atmos",
+      "Android 11 OS",
+      "Supports stylus (sold separately)"
+    ],
+    "quantityInStock": 35
+  },
+  {
+    "productName": "Portable Bluetooth Speaker ABC",
+    "price": 79,
+    "rating": {
+      "average": 4.5,
+      "users": 75
+    },
+    "images": {
+      "preview": "https://i.ibb.co/njbKjHS/product-img-4.jpg",
+      "otherImages": [
+        "https://i.ibb.co/MckdkNG/product-details-5.png",
+        "https://i.ibb.co/YDJjDtP/product-img-3.jpg",
+        "https://i.ibb.co/QK4pq89/product-img-8.jpg"
+      ]
+    },
+    "tag": ["Speakers", "Audio", "ABC"],
+    "colorVariation": ["Black", "Blue", "Red"],
+    "brand": "JBL",
+    "category": "Computer Accessories",
+    "shortDescription": "Compact and powerful Bluetooth speaker for on-the-go music",
+    "features": [
+      "Wireless Bluetooth streaming",
+      "Up to 10 hours of playtime",
+      "IPX7 waterproof rating",
+      "Built-in microphone for hands-free calls",
+      "JBL Signature Sound",
+      "Connects to multiple speakers for party mode"
+    ],
+    "quantityInStock": 95
+  },
+  {
+    "productName": "Gaming Keyboard XYZ",
+    "price": 129,
+    "rating": {
+      "average": 4.7,
+      "users": 65
+    },
+    "images": {
+      "preview": "https://i.ibb.co/m9y0tYR/product-img-2.jpg",
+      "otherImages": [
+        "https://i.ibb.co/RvHmSYn/product-img-1.jpg",
+        "https://i.ibb.co/YDJjDtP/product-img-3.jpg",
+        "https://i.ibb.co/6HZ3Kr3/product-img-82.jpg"
+      ]
+    },
+    "tag": ["Gaming Keyboard", "Gaming", "XYZ"],
+    "colorVariation": ["Black", "RGB"],
+    "brand": "Razer",
+    "category": "Computer Accessories",
+    "shortDescription": "Mechanical gaming keyboard with customizable RGB lighting",
+    "features": [
+      "Razer Green mechanical switches",
+      "Fully programmable keys",
+      "N-key rollover and anti-ghosting",
+      "Magnetic wrist rest",
+      "Customizable RGB lighting",
+      "Dedicated media controls"
+    ],
+    "quantityInStock": 40
+  },
+  {
+    "productName": "Gaming Monitor ABC",
+    "price": 599,
+    "rating": {
+      "average": 4.6,
+      "users": 80
+    },
+    "images": {
+      "preview": "https://i.ibb.co/6HZ3Kr3/product-img-82.jpg",
+      "otherImages": [
+        "https://i.ibb.co/MckdkNG/product-details-5.png",
+        "https://i.ibb.co/YDJjDtP/product-img-3.jpg",
+        "https://i.ibb.co/QK4pq89/product-img-8.jpg"
+      ]
+    },
+    "tag": ["Gaming Monitor", "Gaming", "ABC"],
+    "colorVariation": ["Black", "Silver"],
+    "brand": "ASUS",
+    "category": "Computer Accessories",
+    "shortDescription": "High-refresh-rate gaming monitor for smooth gameplay",
+    "features": [
+      "27-inch QHD IPS display",
+      "165Hz refresh rate",
+      "1ms response time",
+      "NVIDIA G-SYNC compatible",
+      "Ultra-thin bezels",
+      "GamePlus technology"
+    ],
+    "quantityInStock": 30
+  },
+  {
+    "productName": "Gaming Headset PQR",
+    "price": 89,
+    "rating": {
+      "average": 4.4,
+      "users": 95
+    },
+    "images": {
+      "preview": "https://i.ibb.co/YDJjDtP/product-img-3.jpg",
+      "otherImages": [
+        "https://i.ibb.co/QK4pq89/product-img-8.jpg",
+        "https://i.ibb.co/m9y0tYR/product-img-2.jpg",
+        "https://i.ibb.co/RvHmSYn/product-img-1.jpg"
+      ]
+    },
+    "tag": ["Gaming Headset", "Gaming", "PQR"],
+    "colorVariation": ["Black", "Red"],
+    "brand": "HyperX",
+    "category": "Computer Accessories",
+    "shortDescription": "Immersive gaming headset with crystal-clear audio",
+    "features": [
+      "50mm drivers with neodymium magnets",
+      "Durable aluminum frame",
+      "Memory foam ear cushions",
+      "Detachable noise-cancelling microphone",
+      "Multi-platform compatibility",
+      "Built-in audio controls"
+    ],
+    "quantityInStock": 50
+  },
+  {
+    "productName": "Gaming Mousepad XYZ",
+    "price": 39,
+    "rating": {
+      "average": 4.8,
+      "users": 70
+    },
+    "images": {
+      "preview": "https://i.ibb.co/6HZ3Kr3/product-img-82.jpg",
+      "otherImages": [
+        "https://i.ibb.co/m9y0tYR/product-img-2.jpg",
+        "https://i.ibb.co/RvHmSYn/product-img-1.jpg",
+        "https://i.ibb.co/YDJjDtP/product-img-3.jpg"
+      ]
+    },
+    "tag": ["Gaming Mousepad", "Gaming", "XYZ"],
+    "colorVariation": ["Black", "RGB"],
+    "brand": "SteelSeries",
+    "category": "Computer Accessories",
+    "shortDescription": "High-quality mousepad for precise gaming performance",
+    "features": [
+      "Large surface area",
+      "Low-friction surface",
+      "Non-slip rubber base",
+      "Stitched edges for durability",
+      "Glide-enhancing surface",
+      "Customizable RGB lighting"
+    ],
+    "quantityInStock": 80
+  },
+  {
+    "productName": "Gaming Chair ABC",
+    "price": 299,
+    "rating": {
+      "average": 4.5,
+      "users": 90
+    },
+    "images": {
+      "preview": "https://i.ibb.co/njbKjHS/product-img-4.jpg",
+      "otherImages": [
+        "https://i.ibb.co/MckdkNG/product-details-5.png",
+        "https://i.ibb.co/YDJjDtP/product-img-3.jpg",
+        "https://i.ibb.co/QK4pq89/product-img-8.jpg"
+      ]
+    },
+    "tag": ["Gaming Chair", "Gaming", "ABC"],
+    "colorVariation": ["Black", "Red", "Blue"],
+    "brand": "DXRacer",
+    "category": "Computer Accessories",
+    "shortDescription": "Ergonomic gaming chair for comfort during long gaming sessions",
+    "features": [
+      "High-density foam padding",
+      "Adjustable backrest and armrests",
+      "PU leather cover",
+      "360-degree swivel",
+      "Class 4 gas lift for height adjustment",
+      "Supports up to 300lbs"
+    ],
+    "quantityInStock": 70
+  }
+]
