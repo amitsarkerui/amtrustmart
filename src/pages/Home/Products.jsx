@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
-import { Pagination } from "swiper/modules";
+import { Autoplay, Pagination } from "swiper/modules";
+import { Rating } from "@smastrom/react-rating";
+import "@smastrom/react-rating/style.css";
+import ProductCard from "../../components/ProductCard";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -20,7 +23,7 @@ const Products = () => {
 
   console.log(gamingProducts);
   const isMobile = window.innerWidth <= 768;
-  const slidesPerView = isMobile ? 1 : 4;
+  const slidesPerView = isMobile ? 1 : 5;
 
   return (
     <div className="my-4 container mx-auto px-4 md:my-12">
@@ -49,19 +52,13 @@ const Products = () => {
           slidesPerView={slidesPerView}
           autoplay={{ delay: 3000 }}
           spaceBetween={30}
-          modules={[Pagination]}
+          modules={[Autoplay, Pagination]}
           className="mySwiper"
         >
           <div>
             {gamingProducts.map((item) => (
               <SwiperSlide key={item._id}>
-                <div className="bg-white p-8">
-                  <img
-                    className="h-[150px] mx-auto"
-                    src={item.images.preview}
-                    alt=""
-                  />
-                </div>
+                <ProductCard item={item}></ProductCard>
               </SwiperSlide>
             ))}
           </div>
