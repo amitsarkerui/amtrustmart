@@ -13,7 +13,7 @@ const NewArrival = () => {
     (a, b) => new Date(b.date) - new Date(a.date)
   );
 
-  //   console.log("Sdata", sortedProducts);
+  //   console.log("SortedData", sortedProducts);
 
   return (
     <div className="container mx-auto px-4">
