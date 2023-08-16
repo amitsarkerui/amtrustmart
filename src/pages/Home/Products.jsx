@@ -21,7 +21,7 @@ const Products = () => {
     setGamingProducts(gaming);
   }, [products]);
 
-  console.log(gamingProducts);
+  // console.log(gamingProducts);
   const isMobile = window.innerWidth <= 768;
   const slidesPerView = isMobile ? 1 : 5;
 
