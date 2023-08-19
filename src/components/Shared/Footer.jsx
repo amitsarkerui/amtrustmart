@@ -37,22 +37,19 @@ const Footer = () => {
         </div>
       </div>
       <hr className="my-10" />
-      <div className="flex justify-between items-center pb-10">
-        <div className=" flex gap-6 items-center">
-          <span className="text-gray-500 flex gap-3">
-            <FaFacebook />
-            <FaInstagram />
-            <FaLinkedin />
-            <FaYoutube />
-          </span>
-          <p className="text-gray-500">
-            ©2023 - Amit Sarker - All rights reserved
-          </p>
-        </div>
-        <div>
-          <img className="w-[650px]" src={payWith} alt="" />
-        </div>
+
+      <div className=" flex flex-col md:flex-row gap-6 items-center justify-between pb-10">
+        <span className="text-gray-500 flex gap-3">
+          <FaFacebook />
+          <FaInstagram />
+          <FaLinkedin />
+          <FaYoutube />
+        </span>
+        <p className="text-gray-500">©2023 - Amit Sarker</p>
       </div>
+      {/* <div className="w-full">
+          <img className="w-full" src={payWith} alt="" />
+        </div> */}
     </div>
   );
 };
