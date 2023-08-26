@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Hero from "./Hero";
 import Promo from "./Promo";
 import Products from "./Products";
