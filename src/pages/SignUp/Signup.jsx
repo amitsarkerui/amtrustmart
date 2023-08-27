@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import logo from "../../assets/logo/amtrustmart.png";
 import signUpImage from "../../assets/Sign up and login/3d-render-secure-login-password-illustration.jpg";
 import { useForm } from "react-hook-form";
+import { AuthContextProvider } from "../../AuthProvider/AuthProvider";
+import { updateProfile } from "firebase/auth";
+const imageHostingToken = import.meta.env.VITE_IMAGE_HOSTING_TOKEN;
+// console.log(import.meta.env.VITE_IMAGE_HOSTING_TOKEN);
 
 const SignUp = () => {
+  const { createUser } = useContext(AuthContextProvider);
+  const [passwordMatching, setPasswordMatching] = useState(false);
+  const img_hosting_url = `https://api.imgbb.com/1/upload?key=${imageHostingToken}`;
   const {
     register,
     handleSubmit,
@@ -12,8 +19,37 @@ const SignUp = () => {
   } = useForm();
 
   const onsubmit = (data) => {
-    console.log(data);
+    if (data.password !== data.confirmPassword) {
+      setPasswordMatching(true);
+      return;
+    }
+    // console.log(data);
+    const formData = new FormData();
+    formData.append("image", data.photoURL[0]);
+    fetch(img_hosting_url, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((imgResponse) => {
+        if (imgResponse.success) {
+          const imgURL = imgResponse.data.display_url;
+          //   console.log(imgURL);
+          createUser(data.email, data.password).then((result) => {
+            const registeredUser = result.user;
+            updateProfile(registeredUser, {
+              displayName: data.name,
+              photoURL: imgURL,
+            });
+            console.log(registeredUser);
+          });
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
+
   return (
     <div className="container mx-auto">
       <img
@@ -39,16 +75,11 @@ const SignUp = () => {
                     type="text"
                     name="name"
                     {...register("name", { required: true })}
-                    className=" peer block min-h-[auto] w-full rounded border bg-transparent px-3 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
+                    className=" peer block min-h-[auto] w-full rounded border bg-transparent px-3 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]"
                     id="exampleFormControlInput3"
                     placeholder="Full Name"
                   />
-                  <label
-                    htmlFor="exampleFormControlInput3"
-                    className=" pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[2.15] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[1.15rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[1.15rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
-                  >
-                    Full Name
-                  </label>
+
                   {errors.name?.type === "required" && (
                     <p>Name is must be required</p>
                   )}
@@ -59,16 +90,11 @@ const SignUp = () => {
                     type="email"
                     name="email"
                     {...register("email", { required: true })}
-                    className=" peer block min-h-[auto] w-full rounded border bg-transparent px-3 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
-                    id="exampleFormControlInput3"
+                    className=" peer block min-h-[auto] w-full rounded border bg-transparent px-3 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]"
+                    id="exampleFormControlInput333"
                     placeholder="Email address"
                   />
-                  <label
-                    htmlFor="exampleFormControlInput3"
-                    className=" pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[2.15] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[1.15rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[1.15rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
-                  >
-                    Email address
-                  </label>
+
                   {errors.email?.type === "required" && (
                     <p>Please enter a valid email</p>
                   )}
@@ -85,16 +111,11 @@ const SignUp = () => {
                       maxLength: 28,
                       pattern: /(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])/,
                     })}
-                    className="peer block min-h-[auto] w-full rounded border bg-transparent px-3 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
+                    className="peer block min-h-[auto] w-full rounded border bg-transparent px-3 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]"
                     id="exampleFormControlInput33"
                     placeholder="Password"
                   />
-                  <label
-                    htmlFor="exampleFormControlInput33"
-                    className="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[2.15] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[1.15rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[1.15rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
-                  >
-                    Password
-                  </label>
+
                   {(errors.password?.type === "required" && (
                     <p>
                       You can't create a account without password. Please enter
@@ -121,38 +142,13 @@ const SignUp = () => {
                     name="confirmPassword"
                     {...register("confirmPassword", {
                       required: true,
-                      minLength: 6,
-                      maxLength: 28,
-                      pattern: /(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])/,
                     })}
-                    className="peer block min-h-[auto] w-full rounded border bg-transparent px-3 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
-                    id="exampleFormControlInput33"
-                    placeholder="Password"
+                    className="peer block min-h-[auto] w-full rounded border bg-transparent px-3 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]"
+                    id="exampleFormControlInput303"
+                    placeholder="Confirm Password"
                   />
-                  <label
-                    htmlFor="exampleFormControlInput33"
-                    className="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[2.15] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[1.15rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[1.15rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
-                  >
-                    Confirm Password
-                  </label>
-                  {(errors.confirmPassword?.type === "required" && (
-                    <p>
-                      You can't create a account without password. Please enter
-                      a strong password
-                    </p>
-                  )) ||
-                    (errors.confirmPassword?.type === "minLength" && (
-                      <p>Password must be grater than five characters</p>
-                    )) ||
-                    (errors.confirmPassword?.type === "maxLength" && (
-                      <p>Password must not be grater than 24 characters</p>
-                    )) ||
-                    (errors.confirmPassword?.type === "pattern" && (
-                      <p>
-                        Password must have one Uppercase one lower case and one
-                        number.
-                      </p>
-                    ))}
+
+                  {passwordMatching ? <p>Password is not matching</p> : <></>}
                 </div>
 
                 {/* Profile Images */}
@@ -175,7 +171,7 @@ const SignUp = () => {
                   data-te-ripple-init
                   data-te-ripple-color="light"
                 >
-                  Sign in
+                  Create Account
                 </button>
 
                 {/* Divider */}
