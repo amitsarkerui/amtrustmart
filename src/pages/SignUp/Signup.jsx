@@ -5,24 +5,57 @@ import { useForm } from "react-hook-form";
 import { AuthContextProvider } from "../../AuthProvider/AuthProvider";
 import { updateProfile } from "firebase/auth";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 const imageHostingToken = import.meta.env.VITE_IMAGE_HOSTING_TOKEN;
 // console.log(import.meta.env.VITE_IMAGE_HOSTING_TOKEN);
 
 const SignUp = () => {
-  const { createUser } = useContext(AuthContextProvider);
+  const { createUser, googleSignUp } = useContext(AuthContextProvider);
   const [passwordMatching, setPasswordMatching] = useState(false);
   const img_hosting_url = `https://api.imgbb.com/1/upload?key=${imageHostingToken}`;
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm();
-
+  // Save User info in mongoDB
+  const saveUserToDB = (name, email, photoUrl) => {
+    const newUser = {
+      name: name,
+      email: email,
+      photoURL: photoUrl,
+      role: "user",
+    };
+    fetch("http://localhost:3030/users", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(newUser),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.insertedId) {
+          Toast.fire({
+            icon: "success",
+            title: "Signed in successfully",
+          });
+          navigate('/')
+        }
+        if (data.errorMessage) {
+          Toast.fire({
+            icon: "error",
+            title: "This email is already in use",
+          });
+        }
+      });
+  };
   // swal alart
   const Toast = Swal.mixin({
     toast: true,
-    position: "top-end",
+    position: "top-center",
     showConfirmButton: false,
     timer: 3000,
     timerProgressBar: true,
@@ -57,34 +90,7 @@ const SignUp = () => {
                 photoURL: imgURL,
               });
               // console.log(registeredUser);
-              const newUser = {
-                name: data.name,
-                email: data.email,
-                photoURL: imgURL,
-                role: "user",
-              };
-              fetch("http://localhost:3030/users", {
-                method: "POST",
-                headers: {
-                  "content-type": "application/json",
-                },
-                body: JSON.stringify(newUser),
-              })
-                .then((res) => res.json())
-                .then((data) => {
-                  if (data.insertedId) {
-                    Toast.fire({
-                      icon: "success",
-                      title: "Signed in successfully",
-                    });
-                  }
-                  if (data.errorMessage) {
-                    Toast.fire({
-                      icon: "error",
-                      title: "This email is already in use",
-                    });
-                  }
-                });
+              saveUserToDB(data.name, data.email, imgURL);
             })
             .catch((err) => {
               Toast.fire({
@@ -99,6 +105,13 @@ const SignUp = () => {
       });
   };
 
+  const continueWithGoogle = () => {
+    googleSignUp().then((result) => {
+      console.log(result);
+      const { displayName, email, photoURL } = result.user;
+      saveUserToDB(displayName, email, photoURL);
+    });
+  };
   return (
     <div className="container mx-auto">
       <img
@@ -232,6 +245,7 @@ const SignUp = () => {
 
                 {/* Social login buttons */}
                 <a
+                  onClick={continueWithGoogle}
                   className="mb-3 flex w-full items-center justify-center rounded bg-primary px-7 pb-2.5 pt-3 text-center text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
                   style={{ backgroundColor: "#4281EF" }}
                   href="#!"

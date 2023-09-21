@@ -1,7 +1,20 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import logo from "../../assets/logo/amtrustmart.png";
+import { AuthContextProvider } from "../../AuthProvider/AuthProvider";
 
 const Navbar = () => {
+  const { user, logOut } = useContext(AuthContextProvider);
+
+  // User menu toggle
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  // Logout functionality
+  const handleLogOut = () => {
+    logOut();
+  };
   return (
     <header className="bg-white">
       <div className="container mx-auto px-4 py-8 flex justify-between ">
@@ -41,36 +54,9 @@ const Navbar = () => {
           </svg>
         </div>
 
-        {/* <!-- phone number --> */}
-        {/* <div className="ml-auto md:w-48 hidden sm:flex flex-col place-items-end">
-          <span className="font-bold md:text-xl">8 800 332 65-66</span>
-          <span className="font-semibold text-sm text-gray-400">
-            Support 24/7
-          </span>
-        </div> */}
-
         {/* <!-- buttons --> */}
         <nav className="contents">
           <ul className="ml-4 xl:w-48 flex items-center justify-end">
-            <li className="ml-2 lg:ml-4 relative inline-block">
-              <a className="" href="">
-                <svg
-                  className="h-9 lg:h-10 p-2 text-gray-500 svg-inline--fa fa-user fa-w-14 fa-9x"
-                  aria-hidden="true"
-                  focusable="false"
-                  data-prefix="far"
-                  data-icon="user"
-                  role="img"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 448 512"
-                >
-                  <path
-                    fill="currentColor"
-                    d="M313.6 304c-28.7 0-42.5 16-89.6 16-47.1 0-60.8-16-89.6-16C60.2 304 0 364.2 0 438.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-25.6c0-74.2-60.2-134.4-134.4-134.4zM400 464H48v-25.6c0-47.6 38.8-86.4 86.4-86.4 14.6 0 38.3 16 89.6 16 51.7 0 74.9-16 89.6-16 47.6 0 86.4 38.8 86.4 86.4V464zM224 288c79.5 0 144-64.5 144-144S303.5 0 224 0 80 64.5 80 144s64.5 144 144 144zm0-240c52.9 0 96 43.1 96 96s-43.1 96-96 96-96-43.1-96-96 43.1-96 96-96z"
-                  ></path>
-                </svg>
-              </a>
-            </li>
             <li className="ml-2 lg:ml-4 relative inline-block">
               <a className="" href="">
                 <div className="absolute -top-1 right-0 z-10 bg-primary text-white text-xs font-bold px-1 py-0.5 rounded-sm">
@@ -115,6 +101,85 @@ const Navbar = () => {
                 </svg>
               </a>
             </li>
+            {user ? (
+              <>
+                {/* Profile dropdown */}
+                <div className="relative ml-3" id="userDropdown">
+                  <button
+                    id="dropdownUserAvatarButton"
+                    data-dropdown-toggle="dropdownAvatar"
+                    className="flex mx-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                    type="button"
+                    onClick={toggleDropdown}
+                  >
+                    <span className="sr-only">Open user menu</span>
+                    <img
+                      className="w-10 h-10 rounded-full"
+                      src={user?.photoURL}
+                      alt="user photo"
+                    />
+                  </button>
+
+                  {/* Dropdown menu */}
+                  {isOpen && (
+                    <div
+                      id="dropdownAvatar"
+                      className="z-10 absolute top-12 right-0 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
+                    >
+                      <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
+                        <div>{user?.displayName}</div>
+                        <div className="font-medium truncate">
+                          {user?.email}
+                        </div>
+                      </div>
+                      <ul
+                        className="py-2 text-sm text-gray-700 dark:text-gray-200"
+                        aria-labelledby="dropdownUserAvatarButton"
+                      >
+                        <li>
+                          <a
+                            href="#"
+                            className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                          >
+                            Update Profile
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="#"
+                            className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                          >
+                            Carts
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="#"
+                            className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                          >
+                            Wish List
+                          </a>
+                        </li>
+                      </ul>
+                      <div className="py-2">
+                        <a
+                          onClick={handleLogOut}
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                        >
+                          Sign out
+                        </a>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </>
+            ) : (
+              <>
+                <button className="ml-5 btn btn-primary text-white">
+                  Login
+                </button>
+              </>
+            )}
           </ul>
         </nav>
 
