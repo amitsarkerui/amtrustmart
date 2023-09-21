@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import logo from "../../assets/logo/amtrustmart.png";
 import { AuthContextProvider } from "../../AuthProvider/AuthProvider";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContextProvider);
@@ -174,11 +175,11 @@ const Navbar = () => {
                 </div>
               </>
             ) : (
-              <>
+              <Link to={"/sign-in"}>
                 <button className="ml-5 btn btn-primary text-white">
                   Login
                 </button>
-              </>
+              </Link>
             )}
           </ul>
         </nav>

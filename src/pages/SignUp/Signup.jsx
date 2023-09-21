@@ -13,7 +13,7 @@ const SignUp = () => {
   const { createUser, googleSignUp } = useContext(AuthContextProvider);
   const [passwordMatching, setPasswordMatching] = useState(false);
   const img_hosting_url = `https://api.imgbb.com/1/upload?key=${imageHostingToken}`;
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -40,9 +40,9 @@ const SignUp = () => {
         if (data.insertedId) {
           Toast.fire({
             icon: "success",
-            title: "Signed in successfully",
+            title: "User created successfully",
           });
-          navigate('/')
+          navigate("/");
         }
         if (data.errorMessage) {
           Toast.fire({
@@ -109,7 +109,33 @@ const SignUp = () => {
     googleSignUp().then((result) => {
       console.log(result);
       const { displayName, email, photoURL } = result.user;
-      saveUserToDB(displayName, email, photoURL);
+      // saveUserToDB(displayName, email, photoURL);
+      const newUser = {
+        name: displayName,
+        email: email,
+        photoURL: photoURL,
+        role: "user",
+      };
+      fetch("http://localhost:3030/users", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(newUser),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.insertedId) {
+            Toast.fire({
+              icon: "success",
+              title: "Signed in successfully",
+            });
+            navigate("/");
+          }
+          if ((data.errorMessage = "User already registered with this email")) {
+            navigate("/");
+          }
+        });
     });
   };
   return (
