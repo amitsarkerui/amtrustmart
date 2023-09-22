@@ -156,6 +156,7 @@ const SignUp = () => {
 
             {/* Right column container with form */}
             <div className="md:w-8/12 lg:ml-6 lg:w-5/12">
+              {/* --------input from ----------- */}
               <form onSubmit={handleSubmit(onsubmit)}>
                 {/* Name input */}
                 <div className="relative mb-6" data-te-input-wrapper-init>
