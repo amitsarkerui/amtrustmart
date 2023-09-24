@@ -1,11 +1,20 @@
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { FaAngleLeft } from "react-icons/fa";
+import { FaAngleLeft, FaTimesCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { AuthContextProvider } from "../../AuthProvider/AuthProvider";
+import Swal from "sweetalert2";
+import { updateProfile } from "firebase/auth";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+const imageHostingToken = import.meta.env.VITE_IMAGE_HOSTING_TOKEN;
 
 const UpdateProfile = () => {
+  const { user, loading, auth } = useContext(AuthContextProvider);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [visibility, setVisibility] = useState("invisible");
+  const [axiosSecure] = useAxiosSecure();
+  const img_hosting_url = `https://api.imgbb.com/1/upload?key=${imageHostingToken}`;
   const [formValues, setFormValues] = useState({
     photoURL: "",
     name: "",
@@ -17,11 +26,148 @@ const UpdateProfile = () => {
     formState: { errors },
     setValue,
   } = useForm();
-  const { user, loading } = useContext(AuthContextProvider);
+  // SWAL Toast
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
   const onsubmit = (data) => {
     console.log(data);
+    if (data.photoURL[0] && data.name !== "") {
+      const formData = new FormData();
+      formData.append("image", data.photoURL[0]);
+      fetch(img_hosting_url, {
+        method: "POST",
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then((imgResponse) => {
+          if (imgResponse.success) {
+            const imgURL = imgResponse.data.display_url;
+            updateProfile(auth.currentUser, {
+              displayName: data.name,
+              photoURL: imgURL,
+            })
+              .then((result) => {
+                Toast.fire({
+                  icon: "success",
+                  title: "Profile Image and Name Updated Successfully",
+                });
+                const updatedData = {
+                  name: data.name,
+                  photoURL: imgURL,
+                };
+                axiosSecure
+                  .patch(`/users/${user.email}`, updatedData)
+                  .then((res) => {
+                    console.log(res);
+                  })
+                  .catch((error) => {
+                    console.error(error);
+                  });
+              })
+              .catch((error) => {
+                Toast.fire({
+                  icon: "error",
+                  title: error,
+                });
+              });
+          }
+        });
+    } else if (data.photoURL[0] && data.name === "") {
+      const formData = new FormData();
+      formData.append("image", data.photoURL[0]);
+      fetch(img_hosting_url, {
+        method: "POST",
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then((imgResponse) => {
+          if (imgResponse.success) {
+            const imgURL = imgResponse.data.display_url;
+            updateProfile(auth.currentUser, {
+              photoURL: imgURL,
+            })
+              .then((result) => {
+                Toast.fire({
+                  icon: "success",
+                  title: "Profile Image Updated Successfully",
+                });
+                const updatedData = {
+                  photoURL: imgURL,
+                };
+                axiosSecure
+                  .patch(`/users/${user.email}`, updatedData)
+                  .then((res) => {
+                    console.log(res);
+                  })
+                  .catch((error) => {
+                    console.error(error);
+                  });
+              })
+              .catch((error) => {
+                Toast.fire({
+                  icon: "error",
+                  title: error,
+                });
+              });
+          }
+        });
+    } else {
+      updateProfile(auth.currentUser, {
+        displayName: data.name,
+      })
+        .then((result) => {
+          Toast.fire({
+            icon: "success",
+            title: "Name Updated Successfully",
+          });
+          const updatedData = {
+            name: data.name,
+          };
+          axiosSecure
+            .patch(`/users/${user.email}`, updatedData)
+            .then((res) => {
+              console.log(res);
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+        })
+        .catch((error) => {
+          Toast.fire({
+            icon: "error",
+            title: error,
+          });
+        });
+    }
   };
-
+  // handle clear photo
+  const handleClearPhoto = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Remove the photo",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#F65E01",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, remove!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setValue("photoURL", "");
+        setSelectedImage(null);
+        setVisibility("invisible");
+        setIsButtonDisabled(true);
+      }
+    });
+  };
   return (
     <div className="container mx-auto my-20">
       <div className="flex gap-2 items-center">
@@ -61,23 +207,23 @@ const UpdateProfile = () => {
           >
             {/* Profile Images */}
             <img
-              className="w-24 h-24 mx-auto mb-6 rounded-md"
-              src={user.photoURL}
+              className="w-24 h-24 mx-auto mb-6 rounded-md object-cover"
+              src={selectedImage || user.photoURL}
               alt=""
             />
-            <div className="mb-4">
+            <div className="mb-4 relative">
+              <FaTimesCircle
+                className={`absolute z-10 right-[-6px] top-[-6px] ${visibility}`}
+                onClick={handleClearPhoto}
+              ></FaTimesCircle>
               {/* <label className="label">Upload Image</label> */}
               <input
                 {...register("photoURL")}
                 onChange={(e) => {
-                  setValue("photoURL", e.target.value);
-                  setFormValues({ ...formValues, photoURL: e.target.value });
-                  setIsButtonDisabled(
-                    Object.values({
-                      ...formValues,
-                      photoURL: e.target.value,
-                    }).every((value) => value === "")
-                  );
+                  const file = e.target.files[0];
+                  setSelectedImage(URL.createObjectURL(file));
+                  setIsButtonDisabled(false);
+                  setVisibility("visible");
                 }}
                 className="relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.6rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.6rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.6rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
                 type="file"
