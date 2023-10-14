@@ -2,9 +2,11 @@ import React, { useContext, useState } from "react";
 import logo from "../../assets/logo/amtrustmart.png";
 import { AuthContextProvider } from "../../AuthProvider/AuthProvider";
 import { Link } from "react-router-dom";
+import useCart from "../../hooks/useCart";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContextProvider);
+  const [cart] = useCart();
 
   // User menu toggle
   const [isOpen, setIsOpen] = useState(false);
@@ -17,7 +19,7 @@ const Navbar = () => {
     logOut();
   };
   return (
-    <header className="bg-white">
+    <header className="bg-white fixed top-0 left-0 z-50 w-full">
       <div className="container mx-auto px-4 py-8 flex justify-between ">
         {/* <!-- logo --> */}
         <div className="flex-shrink-0">
@@ -83,7 +85,7 @@ const Navbar = () => {
             <li className="ml-2 lg:ml-4 relative inline-block">
               <a className="" href="">
                 <div className="absolute -top-1 right-0 z-10 bg-primary text-white text-xs font-bold px-1 py-0.5 rounded-sm">
-                  12
+                  {cart.length}
                 </div>
                 <svg
                   className="h-9 lg:h-10 p-2 text-gray-500 svg-inline--fa fa-shopping-cart fa-w-18 fa-9x"
