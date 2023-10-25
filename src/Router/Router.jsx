@@ -5,6 +5,7 @@ import SignUp from "../pages/SignUp/Signup";
 import Login from "../pages/Login/Login";
 import UpdateProfile from "../pages/Update Profile/UpdateProfile";
 import PrivateRoutes from "../Routes/PrivateRoutes";
+import CartDetails from "../pages/CartDetails/CartDetails";
 
 export const router = createBrowserRouter([
   {
@@ -20,6 +21,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoutes>
             <UpdateProfile></UpdateProfile>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "cartDetails",
+        element: (
+          <PrivateRoutes>
+            <CartDetails></CartDetails>
           </PrivateRoutes>
         ),
       },

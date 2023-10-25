@@ -4,6 +4,8 @@ import { AuthContextProvider } from "../AuthProvider/AuthProvider";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import useCart from "../hooks/useCart";
+import "../components/style.css";
+import { Link } from "react-router-dom";
 
 const ProductCard = ({ item }) => {
   // console.log("from products", item);
@@ -37,6 +39,7 @@ const ProductCard = ({ item }) => {
         product_id: item?._id,
         productName: item?.productName,
         price: item?.price,
+        qty: 1,
         rating: item?.rating,
         images: item?.images,
         brand: item?.brand,
@@ -60,6 +63,11 @@ const ProductCard = ({ item }) => {
       }
     }
   };
+  // Check product in cart
+  const isInCart =
+    Array.isArray(cart) &&
+    cart.find &&
+    cart.find((singleItem) => singleItem?.product_id === item?._id);
   return (
     <div className="relative bg-white p-8 flex flex-col">
       <img
@@ -76,20 +84,32 @@ const ProductCard = ({ item }) => {
       <h2 className="text-lg font-semiBold mt-2">{item.productName}</h2>
       <p className="text-xl font-bold mt-3">$ {item.price}</p>
       <div className="flex-grow"></div>
-      {quantity ? (
-        <button
-          onClick={() => handleAddToCart(item)}
-          className="mt-8 btn btn-md btn-outline w-full"
-        >
-          Add to Cart
-        </button>
+      {isInCart ? (
+        <>
+          <Link to={"/cartDetails"}>
+            <button className="mt-8 btn btn-md btn-outline btn-primary  w-full btn-added">
+              <span className="button-text text-primary">Added</span>
+            </button>
+          </Link>
+        </>
       ) : (
-        <button
-          className="mt-8 btn btn-md btn-outline w-full border border-red-500 "
-          disabled
-        >
-          Out of stock
-        </button>
+        <>
+          {quantity ? (
+            <button
+              onClick={() => handleAddToCart(item)}
+              className="mt-8 btn btn-md btn-outline w-full"
+            >
+              Add to Cart
+            </button>
+          ) : (
+            <button
+              className="mt-8 btn btn-md btn-outline w-full border border-red-500 "
+              disabled
+            >
+              Out of stock
+            </button>
+          )}
+        </>
       )}
     </div>
   );

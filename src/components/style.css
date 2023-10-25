@@ -1,0 +1,23 @@
+.btn-added {
+  background-color: transparent;
+  color: #333;
+  padding: 10px 20px;
+
+  cursor: pointer;
+  transition: background-color 0.05s, color 0.3s;
+}
+
+.btn-added:hover {
+  background-color: #f65e01;
+  color: white;
+  border: 2px solid #f65e01; /* Update the border color on hover */
+}
+
+.btn-added:hover .button-text {
+  display: none;
+}
+
+.btn-added:hover::before {
+  content: "View Cart";
+  color: white;
+}
