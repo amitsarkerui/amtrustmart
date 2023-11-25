@@ -6,6 +6,7 @@ import Login from "../pages/Login/Login";
 import UpdateProfile from "../pages/Update Profile/UpdateProfile";
 import PrivateRoutes from "../Routes/PrivateRoutes";
 import CartDetails from "../pages/CartDetails/CartDetails";
+import Checkout from "../pages/Checkout/Checkout";
 
 export const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ export const router = createBrowserRouter([
             <CartDetails></CartDetails>
           </PrivateRoutes>
         ),
+      },
+      {
+        path: "/checkOut",
+        element: <Checkout></Checkout>,
       },
     ],
   },

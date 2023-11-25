@@ -30,7 +30,7 @@ const Products = () => {
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold text-secondary">Gammer World</h2>
         <button className="flex gap-2 btn-link font-medium">
-          See All{" "}
+          See All
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -50,7 +50,7 @@ const Products = () => {
       <div className="my-4 md:my-8">
         <Swiper
           slidesPerView={slidesPerView}
-          autoplay={{ delay: 3000 }}
+          autoplay={{ delay: 10000 }}
           spaceBetween={30}
           modules={[Autoplay, Pagination]}
           className="mySwiper"
