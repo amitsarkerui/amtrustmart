@@ -4,6 +4,7 @@ import useCart from "../../hooks/useCart";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import "./style.css";
 
 const CartDetails = () => {
   const [cart, refetch] = useCart();
@@ -17,9 +18,10 @@ const CartDetails = () => {
     }, 0);
     setTotalPrice(newTotalPrice);
   }, [cart]);
-  console.log(totalPrice, "TotalPrice");
+  // console.log(totalPrice, "TotalPrice");
+
   const handleDecrease = (item) => {
-    if (item.qty >= 1) {
+    if (item.qty > 1) {
       const updatedQty = item.qty - 1;
       const newQty = {
         _id: item._id,
