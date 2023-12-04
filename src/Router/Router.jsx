@@ -7,6 +7,8 @@ import UpdateProfile from "../pages/Update Profile/UpdateProfile";
 import PrivateRoutes from "../Routes/PrivateRoutes";
 import CartDetails from "../pages/CartDetails/CartDetails";
 import Checkout from "../pages/Checkout/Checkout";
+import PaymentSuccess from "../pages/Payment/PaymentSuccess";
+import PaymentFailed from "../pages/Payment/PaymentFailed";
 
 export const router = createBrowserRouter([
   {
@@ -36,6 +38,14 @@ export const router = createBrowserRouter([
       {
         path: "/checkOut",
         element: <Checkout></Checkout>,
+      },
+      {
+        path: "/payment/success/:tran_id",
+        element: <PaymentSuccess></PaymentSuccess>,
+      },
+      {
+        path: "/payment/failed",
+        element: <PaymentFailed></PaymentFailed>,
       },
     ],
   },

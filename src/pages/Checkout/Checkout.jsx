@@ -1,6 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import useCart from "../../hooks/useCart";
 import { useForm } from "react-hook-form";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { AuthContextProvider } from "../../AuthProvider/AuthProvider";
+import Swal from "sweetalert2";
+import loveImg from "../../assets/Cart/love.gif";
+import { useNavigate } from "react-router-dom";
 
 const Checkout = () => {
   const [cart, refetch] = useCart();
@@ -11,6 +16,9 @@ const Checkout = () => {
   const [allSubDistricts, setAllSubDistricts] = useState([]);
   const [subDistricts, setSubDistricts] = useState([]);
   const [pay, setPay] = useState("cash");
+  const [axiosSecure] = useAxiosSecure();
+  const { user } = useContext(AuthContextProvider);
+  const navigate = useNavigate();
 
   // React hook form
   const {
@@ -63,7 +71,72 @@ const Checkout = () => {
   const onSubmit = (data) => {
     // Handle form submission
     console.log(data);
-    console.log(pay);
+
+    if (pay === "cash") {
+      const orderedDetails = {
+        userEmail: user?.email,
+        userName: user?.displayName,
+        productDetails: cart,
+        amount: totalPrice + (totalPrice * 15) / 100,
+        address1: data?.addressLine1,
+        address2: data?.addressLine2,
+        district: data?.district,
+        upaZila: data?.subDistrict,
+        mobile: data?.mobile,
+        contactEmail: data?.email,
+        status: "processing",
+        paymentMethod: "cash",
+        paymentStatus: "notPaid",
+      };
+      axiosSecure
+        .post("/orders", orderedDetails)
+        .then((res) => {
+          if (res.data.insertedId) {
+            axiosSecure.delete(`/deleteUserCart/${user.email}`).then((res) => {
+              if (res.data.deletedCount > 0) {
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "Your Order has been place successfully",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+                refetch();
+                navigate("/");
+              }
+            });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    if (pay === "payNow") {
+      const orderedDetails = {
+        userEmail: user?.email,
+        userName: user?.displayName,
+        productDetails: cart,
+        amount: totalPrice + (totalPrice * 15) / 100,
+        address1: data?.addressLine1,
+        address2: data?.addressLine2,
+        district: data?.district,
+        upaZila: data?.subDistrict,
+        mobile: data?.mobile,
+        contactEmail: data?.email,
+        status: "processing",
+        paymentMethod: "payNow",
+        paymentStatus: "notPaid",
+      };
+      axiosSecure
+        .post("/payment", orderedDetails)
+        .then((res) => {
+          // console.log(res);
+          window.location.replace(res.data.url);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   return (
@@ -96,7 +169,7 @@ const Checkout = () => {
                       {item.productName}
                     </th>
                     <td className="px-6 py-4">{item.qty}</td>
-                    <td className="px-6 py-4">${item.price}</td>
+                    <td className="px-6 py-4">${item.price * item.qty}</td>
                   </tr>
                 ))}
               </tbody>
@@ -307,7 +380,7 @@ const Checkout = () => {
                       id="pay-now"
                       type="radio"
                       name="payment-method"
-                      value="pay"
+                      value="payNow"
                       className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-orange-300 dark:focus:ring-orange-600 dark:focus:bg-orange-600 dark:bg-gray-700 dark:border-gray-600"
                       onChange={(e) => setPay(e.target.value)}
                     />
